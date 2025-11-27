@@ -2,8 +2,3 @@ fastapi
 uvicorn
 mangum
 pydantic
-qrcode
-pillow
-requests
-user-agents
-python-multipart

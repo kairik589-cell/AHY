@@ -43,32 +43,12 @@ class CryptoResponse(BaseModel):
     bitcoin: dict
     ethereum: dict
 
-# --- New Models ---
-
-class WhoisRequest(BaseModel):
-    domain: str
-
-class WhoisResponse(BaseModel):
-    domain: str
-    data: Dict[str, Any]
+# --- New Models (Lite) ---
 
 class IPInfoResponse(BaseModel):
     ip: str
     user_agent: Dict[str, Any]
     headers: Dict[str, str]
-
-class YTInfoRequest(BaseModel):
-    url: str
-
-class YTInfoResponse(BaseModel):
-    id: Optional[str]
-    title: Optional[str]
-    uploader: Optional[str]
-    duration: Optional[Union[int, float]]
-    view_count: Optional[int]
-    thumbnail: Optional[str]
-    webpage_url: Optional[str]
-    upload_date: Optional[str]
 
 class PasswordCheckRequest(BaseModel):
     password: str
@@ -78,7 +58,3 @@ class PasswordCheckResponse(BaseModel):
     score: int # 0-4
     crack_time_display: str
     feedback: Dict[str, Any]
-
-class ExifResponse(BaseModel):
-    filename: str
-    exif_data: Dict[str, Any]

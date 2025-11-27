@@ -1,20 +1,9 @@
-from fastapi import APIRouter, HTTPException, Request
+from fastapi import APIRouter, Request
 from app.services import network_service
-from app.schemas import WhoisRequest, WhoisResponse, IPInfoResponse
+from app.schemas import IPInfoResponse
 from app.core.schemas import ResponseModel
 
 router = APIRouter()
-
-@router.post("/whois", response_model=ResponseModel[WhoisResponse])
-async def whois_lookup(request: WhoisRequest):
-    try:
-        data = network_service.lookup_whois(request.domain)
-        return ResponseModel(
-            status="success",
-            data=WhoisResponse(domain=request.domain, data=data)
-        )
-    except Exception as e:
-        raise HTTPException(status_code=400, detail=str(e))
 
 @router.get("/my-ip", response_model=ResponseModel[IPInfoResponse])
 async def my_ip_info(request: Request):

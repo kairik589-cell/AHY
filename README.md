@@ -2,18 +2,19 @@
 
 This is a complete, modular FastAPI project designed to be deployed as a serverless function on Vercel. It includes a variety of utility endpoints, strict method handling, and standardized JSON responses.
 
+**Lite Version:** Optimized for speed and stability. Heavy features (Whois, YouTube, EXIF) have been removed to ensure seamless serverless execution.
+
 ## Features
 
-- **Serverless Ready:** Configured with `Mangum` and `vercel.json` for immediate deployment.
+- **Serverless Ready:** Configured with `Mangum` (lifespan="off") for stable Vercel deployment.
 - **Modular Structure:** Clean separation of concerns (`app/routers`, `app/services`, `app/core`).
 - **Standardized Responses:** All endpoints return `{ "status": "success", "data": { ... } }`.
 - **Method Restriction:** Middleware blocks any method other than GET or POST.
 - **Utilities:**
   - **Utils:** Hashing (SHA256/SHA512), UUID, QR Code (Base64), Text Format, URL Shortener.
   - **Crypto:** BTC/ETH Prices.
-  - **Network:** Whois Lookup, IP/Device Info (Magic Link).
-  - **Media:** YouTube Video Info (Metadata), Image EXIF/GPS Extractor.
-  - **Security:** Password Strength Checker.
+  - **Network:** IP & Device Info (Magic Link).
+  - **Security:** Password Strength Checker (Lightweight).
 
 ## Project Structure
 
@@ -23,7 +24,7 @@ This is a complete, modular FastAPI project designed to be deployed as a serverl
 │   └── index.py        # Vercel entry point (Mangum handler)
 ├── app/
 │   ├── core/           # Middleware, Error Handlers, Schemas
-│   ├── routers/        # API Endpoints (utils, crypto, network, media, security)
+│   ├── routers/        # API Endpoints (utils, crypto, network, security)
 │   ├── services/       # Business Logic
 │   ├── schemas.py      # Pydantic Models
 │   └── main.py         # App Initialization
@@ -57,15 +58,12 @@ This is a complete, modular FastAPI project designed to be deployed as a serverl
     ```bash
     vercel
     ```
-    Follow the prompts. The `vercel.json` file handles the configuration.
 
-## Example Requests (New Features)
+## Example Requests
 
-### 1. Whois Lookup (POST)
+### 1. Hash Text (GET/POST)
 ```bash
-curl -X POST "http://127.0.0.1:8000/whois" \
-     -H "Content-Type: application/json" \
-     -d '{"domain": "google.com"}'
+curl "http://127.0.0.1:8000/hash?text=hello&algorithm=sha256"
 ```
 
 ### 2. My IP & Device Info (GET)
@@ -73,22 +71,16 @@ curl -X POST "http://127.0.0.1:8000/whois" \
 curl "http://127.0.0.1:8000/my-ip"
 ```
 
-### 3. YouTube Info (POST)
+### 3. Generate QR Code (POST)
 ```bash
-curl -X POST "http://127.0.0.1:8000/yt-info" \
+curl -X POST "http://127.0.0.1:8000/qr" \
      -H "Content-Type: application/json" \
-     -d '{"url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"}'
+     -d '{"data": "https://vercel.com"}'
 ```
 
-### 4. Image EXIF Data (POST)
-```bash
-curl -X POST "http://127.0.0.1:8000/exif-data" \
-     -F "file=@/path/to/photo.jpg"
-```
-
-### 5. Password Strength (POST)
+### 4. Password Strength (POST)
 ```bash
 curl -X POST "http://127.0.0.1:8000/password-check" \
      -H "Content-Type: application/json" \
-     -d '{"password": "correcthorsebatterystaple"}'
+     -d '{"password": "MySecretPassword123!"}'
 ```

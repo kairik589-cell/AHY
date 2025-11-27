@@ -5,8 +5,5 @@ pydantic
 qrcode
 pillow
 requests
-whois
-yt-dlp
 user-agents
-zxcvbn
 python-multipart

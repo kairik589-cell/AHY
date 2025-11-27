@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+mangum
+pydantic
+qrcode
+pillow
+requests

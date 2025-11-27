@@ -1,5 +1,4 @@
-from mangum import Mangum
 from app.main import app
 
-# lifespan="off" is critical for Vercel serverless environment compatibility
-handler = Mangum(app, lifespan="off")
+# Vercel automatically detects 'app' variable and wraps it.
+# No need for Mangum.
